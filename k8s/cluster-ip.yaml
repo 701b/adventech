@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: server-fetal-information
+spec:
+  type: ClusterIP
+  selector:
+    component: server
+    student: youngmin
+  ports:
+    - port: 3000
+      targetPort: 3000

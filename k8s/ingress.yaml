@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: iot-home-fetal-information
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    # nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: iot-home-fetal-information.def1587970717993.ews003.en.internal
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: server-fetal-information
+              servicePort: 3000

@@ -1,0 +1,15 @@
+{
+  "name": "fetal-inforamtion-pub-mqtt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "pub-mqtt/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node pub-mqtt/index.js"
+  },
+  "author": "youngmin",
+  "license": "ISC",
+  "dependencies": {
+    "mqtt": "^4.1.0"
+  }
+}

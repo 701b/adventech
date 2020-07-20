@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mqtt-fetal-information
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      component: mqtt
+      student: youngmin
+  template:
+    metadata:
+      labels:
+        component: mqtt
+        student: youngmin
+    spec:
+      containers:
+        - name: mqtt
+          image: vodiakana/fetal-information-sub-mqtt:1.0.0
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: 20m
+              memory: 64Mi
+              ephemeral-storage: 128Mi
+            requests:
+              cpu: 20m
+              memory: 64Mi
+          env:
+            - name: ENSAAS_SERVICES
+              valueFrom:
+                secretKeyRef:
+                  name: iot-home-k8s-def1587970717993-secret
+                  key: ENSAAS_SERVICES

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-fetal-information
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      component: server
+      student: youngmin
+  template:
+    metadata:
+      labels:
+        component: server
+        student: youngmin
+    spec:
+      containers:
+        - name: server
+          image: vodiakana/fetal-information-server:1.0.1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          resources:
+            limits:
+              cpu: 20m
+              memory: 64Mi
+              ephemeral-storage: 64Mi
+            requests:
+              cpu: 20m
+              memory: 64Mi
+          env:
+            - name: ENSAAS_SERVICES
+              valueFrom:
+                secretKeyRef:
+                  name: iot-home-k8s-def1587970717993-secret
+                  key: ENSAAS_SERVICES
