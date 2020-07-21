@@ -39,19 +39,19 @@ app.get("/", (req, res) => {
  * /temps:
  * Retrieves the latest data from DB and returns it to the client
  */
-app.get("/temps", async (req, res) => {
-    try {
-        const result = await pool.query(sqlQueryTemps);
-        
-        result.rows.map(row => {
-            row.timestamp = moment(row.timestamp).format("MM-DD HH:mm:ss");
-        });
-        
-        res.send({heart_rate: result.rows});
-    } catch (err) {
-        console.error("Error executing query...", err.stack);
-    }
-});
+// app.get("/temps", async (req, res) => {
+//     try {
+//         const result = await pool.query(sqlQueryTemps);
+//
+//         result.rows.map(row => {
+//             row.timestamp = moment(row.timestamp).format("MM-DD HH:mm:ss");
+//         });
+//
+//         res.send({heart_rate: result.rows});
+//     } catch (err) {
+//         console.error("Error executing query...", err.stack);
+//     }
+// });
 
 
 /**

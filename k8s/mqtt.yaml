@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: mqtt
-          image: vodiakana/fetal-information-sub-mqtt:1.0.0
+          image: vodiakana/fetal-information-sub-mqtt:1.0.3
           imagePullPolicy: Always
           resources:
             limits:

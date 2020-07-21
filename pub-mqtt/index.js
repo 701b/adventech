@@ -1,4 +1,5 @@
 const mqtt = require("mqtt");
+const dataGen = require("./data-gen");
 
 /**
  * -- Gets credentials from env variables
@@ -15,8 +16,8 @@ const password = "UMD0heROZNK4eNBt9axlNykpS";
 const externalHosts = "rabbitmq-001-pub.sa.wise-paas.com";
 const mqttUri = `mqtt://${username}:${password}@${externalHosts}:1883`;
 
-const mqttTopic = "fetal-information";
-const publishPeriod = 1000;
+const topicOfHeartRate = "fetal-information/heart_rate";
+const topicOfFetalMovement = "fetal-information/fetal_movement";
 
 /**
  * Connects to the IoTHub service using MQTT URI
@@ -25,16 +26,22 @@ const client = mqtt.connect(mqttUri);
 client.on("connect", (connack) => {
     setInterval(() => {
         publishFetalInfo();
-    }, publishPeriod);
+    }, dataGen.dataGenPeriod * 1000);
 });
 
 /**
  * Publish fetal info
  */
 function publishFetalInfo() {
-    const fetalHeartRate = Math.floor((Math.random() * 8) + 22);
+    const fetal_information = dataGen.generateData();
+    const fetalHeartRate = fetal_information.heartRate;
+    const fetalMovement = fetal_information.isFetusMoved;
     
-    client.publish(mqttTopic, fetalHeartRate.toString(), {qos: 0}, (err, packet) => {
-        if (!err) console.log(`Data sent to ${mqttTopic} -- ${fetalHeartRate}`);
+    client.publish(topicOfHeartRate, fetalHeartRate.toString(), {qos: 0}, (err, packet) => {
+        if (!err) console.log(`Data sent to ${topicOfHeartRate} -- ${fetalHeartRate}`);
+    });
+    
+    client.publish(topicOfFetalMovement, fetalMovement.toString(), {qos: 0}, (err, packet) => {
+        if (!err) console.log(`Data sent to ${topicOfFetalMovement} -- ${fetalMovement}`);
     });
 }

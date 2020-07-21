@@ -14,10 +14,18 @@ CREATE TABLE IF NOT EXISTS "fetal_information"."heart_rate"(
   id serial,
   timestamp timestamp without time zone NOT NULL
     DEFAULT (current_timestamp AT TIME ZONE 'UTC'),
-  heart_rate integer,
+  heart_rate double precision,
   PRIMARY KEY (id)
 );
+CREATE TABLE IF NOT EXISTS "fetal_information"."fetal_movement"(
+                                                               id serial,
+                                                               timestamp timestamp without time zone NOT NULL
+                                                                   DEFAULT (current_timestamp AT TIME ZONE 'UTC'),
+                                                               fetal_movement boolean,
+                                                               PRIMARY KEY (id)
+);
 ALTER TABLE "fetal_information"."heart_rate" OWNER to "groupFamily";
+ALTER TABLE "fetal_information"."fetal_movement" OWNER to "groupFamily";
 GRANT ALL ON ALL TABLES IN SCHEMA "fetal_information" TO "groupFamily";
 GRANT ALL ON ALL SEQUENCES IN SCHEMA "fetal_information" TO "groupFamily";
 `;
