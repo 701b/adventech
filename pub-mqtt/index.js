@@ -16,8 +16,7 @@ const password = "UMD0heROZNK4eNBt9axlNykpS";
 const externalHosts = "rabbitmq-001-pub.sa.wise-paas.com";
 const mqttUri = `mqtt://${username}:${password}@${externalHosts}:1883`;
 
-const topicOfHeartRate = "fetal-information/heart_rate";
-const topicOfFetalMovement = "fetal-information/fetal_movement";
+const topic = "fetal-information/total_fetal_information";
 
 /**
  * Connects to the IoTHub service using MQTT URI
@@ -34,14 +33,10 @@ client.on("connect", (connack) => {
  */
 function publishFetalInfo() {
     const fetal_information = dataGen.generateData();
-    const fetalHeartRate = fetal_information.heartRate;
-    const fetalMovement = fetal_information.isFetusMoved;
+    const name = "patient1"
+    const data = `${name}:${fetal_information["heartRate"]}:${fetal_information["isFetusMoved"]}`
     
-    client.publish(topicOfHeartRate, fetalHeartRate.toString(), {qos: 0}, (err, packet) => {
-        if (!err) console.log(`Data sent to ${topicOfHeartRate} -- ${fetalHeartRate}`);
-    });
-    
-    client.publish(topicOfFetalMovement, fetalMovement.toString(), {qos: 0}, (err, packet) => {
-        if (!err) console.log(`Data sent to ${topicOfFetalMovement} -- ${fetalMovement}`);
+    client.publish(topic, data, {qos: 0}, (err, packet) => {
+        if (!err) console.log(`Data sent to ${topic} -- ${name}:${fetal_information["heartRate"]}:${fetal_information["isFetusMoved"]}`);
     });
 }

@@ -1,2 +1,1 @@
-module.exports.sqlWriteHeartRate = "INSERT INTO fetal_information.heart_rate(heart_rate) VALUES($1) RETURNING *";
-module.exports.sqlWriteFetalMovement = "INSERT INTO fetal_information.fetal_movement(fetal_movement) VALUES($1) RETURNING *"
+module.exports.sqlWriteInfo = "INSERT INTO fetal_information.total_fetal_information(name, heart_rate, fetal_movement) VALUES($1, $2, $3) RETURNING *";
