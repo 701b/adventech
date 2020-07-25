@@ -84,12 +84,16 @@ WHERE
 ```postgresql
 SELECT
   "timestamp" AS "time",
-  fetal_movement
+  fetal_movement::INT
 FROM total_fetal_information
 WHERE
   $__timeFilter("timestamp") AND
   name = 'patient1'
 ```
+
+다음은 대시보드 샘플이다.
+
+![](.README_images/multi-dashboard.png)
 
 ## 어떻게 구현했는가?
 

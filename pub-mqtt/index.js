@@ -33,7 +33,7 @@ client.on("connect", (connack) => {
  */
 function publishFetalInfo() {
     const fetal_information = dataGen.generateData();
-    const name = "patient1";
+    const name = "patient2";
     const data = `${name}:${fetal_information["heartRate"]}:${fetal_information["isFetusMoved"]}`;
     
     client.publish(topic, data, {qos: 0}, (err, packet) => {
