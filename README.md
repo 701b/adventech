@@ -44,6 +44,53 @@ server은 node.js express 프레임워크를 사용한 프로그램으로,
 
 postgresql에서 데이터를 받아 데이터를 시각화한다.
 
+## 데이터 전송 방법
+
+pub-mqtt 폴더의 index.js 파일에 name이라는 변수가 있다.
+
+```javascript
+function publishFetalInfo() {
+    ...
+    const name = "patient1";
+    ...
+}
+```
+
+환자 이름을 입력하고 프로젝트 파일 경로에서 터미널을 열고 다음 명령어를 입력하면 서버로 데이터를 전송한다.
+
+```shell script
+npm start
+```
+
+추가적으로 다른 이름의 환자 정보를 전송하고 싶다면, 터미널을 추가로 열고 파일을 수정한 뒤에 프로그램을 실행하면 된다.
+
+## 그라파나에서 데이터 표시하기
+
+심박수에 관한 데이터는 다음의 SQL문을 작성한다.
+name에는 분류할 환자의 이름이다.
+
+```postgresql
+SELECT
+  "timestamp" AS "time",
+  heart_rate
+FROM total_fetal_information
+WHERE
+  $__timeFilter("timestamp") AND
+  name = 'patient1'
+```
+
+태동에 관한 데이터는 다음의 SQL문을 작성한다.
+
+```postgresql
+SELECT
+  "timestamp" AS "time",
+  fetal_movement
+FROM total_fetal_information
+WHERE
+  $__timeFilter("timestamp") AND
+  name = 'patient1'
+```
+
 ## 어떻게 구현했는가?
 
 ### 파일 출처
