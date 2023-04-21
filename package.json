@@ -10,6 +10,6 @@
   "author": "youngmin",
   "license": "ISC",
   "dependencies": {
-    "mqtt": "^4.1.0"
+    "mqtt": "^4.3.7"
   }
 }
